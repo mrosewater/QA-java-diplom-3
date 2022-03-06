@@ -12,7 +12,6 @@ import org.junit.Test;
 import java.util.Map;
 
 import static com.codeborne.selenide.Selenide.page;
-import static com.codeborne.selenide.Selenide.sleep;
 
 public class RegistrationTest extends BaseTest {
 
