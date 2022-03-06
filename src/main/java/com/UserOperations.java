@@ -20,19 +20,7 @@ public class UserOperations {
      */
     public Map<String, String> register() {
 
-        // с помощью библиотеки RandomStringUtils генерируем имэйл
-        // метод randomAlphabetic генерирует строку, состоящую только из букв, в качестве параметра передаём длину строки
-        String email = RandomStringUtils.randomAlphabetic(10) + EMAIL_POSTFIX;
-        // с помощью библиотеки RandomStringUtils генерируем пароль
-        String password = RandomStringUtils.randomAlphabetic(10);
-        // с помощью библиотеки RandomStringUtils генерируем имя пользователя
-        String name = RandomStringUtils.randomAlphabetic(10);
-
-        // создаём и заполняем мапу для передачи трех параметров в тело запроса
-        Map<String, String> inputDataMap = new HashMap<>();
-        inputDataMap.put("email", email);
-        inputDataMap.put("password", password);
-        inputDataMap.put("name", name);
+        Map<String, String> inputDataMap = generateUserInfo();
 
         // отправляем запрос на регистрацию пользователя и десериализуем ответ в переменную response
         UserRegisterResponse response = given()
@@ -49,7 +37,7 @@ public class UserOperations {
         if (response != null) {
             responseData.put("email", response.getUser().getEmail());
             responseData.put("name", response.getUser().getName());
-            responseData.put("password", password);
+            responseData.put("password", inputDataMap.get("password"));
 
             // токен, нужный для удаления пользователя, кладем в статическое поле класса с токенами
             // убираем слово Bearer в начале токена
@@ -75,6 +63,40 @@ public class UserOperations {
                 .delete("auth/user")
                 .then()
                 .statusCode(202);
+    }
+
+    public Map<String, String> generateUserInfo() {
+        // с помощью библиотеки RandomStringUtils генерируем имэйл
+        // метод randomAlphabetic генерирует строку, состоящую только из букв, в качестве параметра передаём длину строки
+        String email = RandomStringUtils.randomAlphabetic(10) + EMAIL_POSTFIX;
+        // с помощью библиотеки RandomStringUtils генерируем пароль
+        String password = RandomStringUtils.randomAlphabetic(10);
+        // с помощью библиотеки RandomStringUtils генерируем имя пользователя
+        String name = RandomStringUtils.randomAlphabetic(10);
+
+        // создаём и заполняем мапу для передачи трех параметров в тело запроса
+        Map<String, String> inputDataMap = new HashMap<>();
+        inputDataMap.put("email", email);
+        inputDataMap.put("password", password);
+        inputDataMap.put("name", name);
+        return inputDataMap;
+    }
+
+    public Map<String, String> generateInvalidUserInfo() {
+        // с помощью библиотеки RandomStringUtils генерируем имэйл
+        // метод randomAlphabetic генерирует строку, состоящую только из букв, в качестве параметра передаём длину строки
+        String email = RandomStringUtils.randomAlphabetic(10) + EMAIL_POSTFIX;
+        // с помощью библиотеки RandomStringUtils генерируем пароль
+        String password = RandomStringUtils.randomAlphabetic(5);
+        // с помощью библиотеки RandomStringUtils генерируем имя пользователя
+        String name = RandomStringUtils.randomAlphabetic(10);
+
+        // создаём и заполняем мапу для передачи трех параметров в тело запроса
+        Map<String, String> inputDataMap = new HashMap<>();
+        inputDataMap.put("email", email);
+        inputDataMap.put("password", password);
+        inputDataMap.put("name", name);
+        return inputDataMap;
     }
 
 }
