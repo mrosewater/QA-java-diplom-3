@@ -1,6 +1,8 @@
-package pages;
+package com.pages;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -14,9 +16,10 @@ public class PasswordRecoveryPage {
     @FindBy(how = How.XPATH,using = ".//a[text()='Войти']")
     private SelenideElement loginLink;
 
+    @Step("Клик по ссылке Войти")
     public LoginPage clickLoginLink() {
         loginLink.click();
-        return page(LoginPage.class);
+        return Selenide.page(LoginPage.class);
     }
 
 }

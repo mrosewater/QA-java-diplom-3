@@ -2,10 +2,11 @@ package tests;
 
 import com.UserOperations;
 import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import pages.RegistrationPage;
+import com.pages.RegistrationPage;
 import com.codeborne.selenide.Selenide;
 import org.junit.Test;
 
@@ -32,6 +33,7 @@ public class RegistrationTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("Успешная регистрация")
     public void validDataRegistrationTest() {
         RegistrationPage registrationPage = page(RegistrationPage.class);
         Selenide.open(registrationPage.URL);
@@ -46,7 +48,7 @@ public class RegistrationTest extends BaseTest {
 
     @After
     public void tearDown() {
-        userOperations.delete();
+        //userOperations.delete();
         WebDriverRunner.closeWebDriver();
     }
 

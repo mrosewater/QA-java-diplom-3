@@ -3,11 +3,12 @@ package tests;
 import com.UserOperations;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import pages.RegistrationPage;
+import com.pages.RegistrationPage;
 
 import java.util.Map;
 
@@ -32,6 +33,7 @@ public class RegistrationErrorTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("Ошибка при регистрации пользователя с паролем из пяти символов")
     public void invalidDataRegistrationTest() {
         RegistrationPage registrationPage = page(RegistrationPage.class);
         Selenide.open(registrationPage.URL);
