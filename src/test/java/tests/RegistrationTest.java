@@ -48,7 +48,7 @@ public class RegistrationTest extends BaseTest {
 
     @After
     public void tearDown() {
-        //userOperations.delete();
+        userOperations.delete();
         WebDriverRunner.closeWebDriver();
     }
 
